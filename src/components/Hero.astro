@@ -5,6 +5,8 @@ import LinkedInIcon from "@/components/icons/LinkedIn.astro";
 import MailIcon from "@/components/icons/Mail.astro";
 import Briefcase from "@/components/icons/Briefcase.astro";
 import SocialPill from "@/components/SocialPill.astro";
+import Copy from "./icons/Copy.astro";
+import GitHub from "./icons/GitHub.astro";
 ---
 
 <div class="max-w-xl">
@@ -37,10 +39,27 @@ import SocialPill from "@/components/SocialPill.astro";
         Since my career began, I worked developing e-commerce solutions with multiple
         clients using different technologies, including Laravel, Shopify and Prestashop.
     </p>
-    <nav class="flex flex-wrap gap-4 mt-8">
-        <SocialPill href="mailto:emjose.dev@gmail.com">
-            <MailIcon class="size-4" />
-            Contact me
+    <div
+        class="flex items-center mt-8 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    >
+        <MailIcon class="size-5 inline-block mr-1" /><span class="mr-2"
+            >Contact me:
+        </span><strong>emjose.dev@gmail.com</strong><button
+            id="copy-email-btn"
+            data-text="emjose.dev@gmail.com"
+            class="text-xs ml-2 inline-flex items-center justify-center gap-2 px-3 py-1 text-gray-800 transition bg-gray-100 border border-gray-300 rounded-full dark:bg-gray-800 dark:border-gray-600 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-gray-900 hover:border-gray-700 hover:text-white dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:hover:text-black group max-w-fit focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+            ><Copy class="size-4" /></button
+        >
+        <span
+            id="success-copy-msg"
+            class="text-sm ml-2 text-white bg-green-700 px-3 py-1 rounded-full border border-gray-300 hidden"
+            >E-mail copied!</span
+        >
+    </div>
+    <nav class="flex flex-wrap gap-4 mt-5">
+        <SocialPill href="https://github.com/em-jose">
+            <GitHub class="size-4" />
+            GitHub
         </SocialPill>
         <SocialPill href="https://www.linkedin.com/in/em-jose/">
             <LinkedInIcon class="size-4" />
@@ -52,3 +71,20 @@ import SocialPill from "@/components/SocialPill.astro";
         </SocialPill>
     </nav>
 </div>
+
+<script>
+    const emailBtn: any = document.querySelector("#copy-email-btn");
+
+    emailBtn?.addEventListener("click", () => {
+        const emailText: string = emailBtn.dataset.text;
+
+        navigator.clipboard.writeText(emailText);
+
+        const successCopyMsg: any = document.querySelector("#success-copy-msg");
+        successCopyMsg?.classList.remove("hidden");
+
+        setTimeout(() => {
+            successCopyMsg?.classList.add("hidden");
+        }, 2000);
+    });
+</script>
